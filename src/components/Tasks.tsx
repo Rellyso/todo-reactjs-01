@@ -1,10 +1,8 @@
 import { nanoid } from 'nanoid'
-import { PlusCircle } from 'phosphor-react'
 import { useState } from 'react'
 import { Empty } from './Empty'
 import { NewTask } from './NewTask'
 import { Task } from './Task'
-import styles from './Tasks.module.css'
 
 export interface ITask {
   id: string | number;

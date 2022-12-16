@@ -1,5 +1,6 @@
 import cx from "classnames";
 import { CheckCircle, Circle, Trash } from "phosphor-react";
+import { useState } from "react";
 import { AlertDialog } from "./AlertDialog";
 import styles from './Task.module.css';
 import { ITask, ITaskList } from "./Tasks";
@@ -10,6 +11,10 @@ interface ITaskProps {
 }
 
 export function Task({ task, onChangeTasks }: ITaskProps) {
+
+  const [open, setOpen] = useState(false)
+
+  const onOpenTask = () => setOpen(true)
 
   const handleToggleMarked = () => {
     onChangeTasks(tasks => {
@@ -62,11 +67,20 @@ export function Task({ task, onChangeTasks }: ITaskProps) {
         {task.content}
       </p>
 
-      <Trash
-        size={24}
-        className='cursor-pointer text-gray-300 hover:brightness-90'
-        onClick={handleDeleteTask}
-      />
+      <AlertDialog
+        confirmMessage="Excluir"
+        description="Realmente deseja excluir essa task?"
+        title="Excluir task"
+        onConfirm={handleDeleteTask}
+        open={open}
+        onOpenChange={setOpen}
+      >
+        <Trash
+          size={24}
+          className='cursor-pointer text-gray-300 hover:brightness-90'
+          onClick={onOpenTask}
+        />
+      </AlertDialog>
     </div>
   )
 }
